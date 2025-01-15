@@ -5,12 +5,12 @@ import logging
 from pythonjsonlogger import jsonlogger
 import os
 
-# Carga las variables de entorno desde .env
+# Carga las variables env
 load_dotenv()
 
 app = Flask(__name__)
 
-# Configuración de la conexión a la base de datos
+# Conexión base de datos. 
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.getenv('DATABASE_USER')}:{os.getenv('DATABASE_PASSWORD')}@{os.getenv('DATABASE_HOST')}/{os.getenv('DATABASE_NAME')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -25,7 +25,7 @@ logHandler.setFormatter(formatter)
 logger.addHandler(logHandler)
 logger.setLevel(logging.INFO)
 
-# Modelo Persona
+# Creación de la clase person con los atributos nombre y país 
 class Persona(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(80), nullable=False)
